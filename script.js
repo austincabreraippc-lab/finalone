@@ -126,7 +126,7 @@ function iniciarBoss(){
                 y:-80,
                 size:10 + Math.random()*10,
                 height:30 + Math.random()*30,
-                speed:5 + Math.random()*2
+                speed:2 + Math.random()*2
             });
         }
     }
