@@ -117,7 +117,6 @@ function iniciarBoss(){
 
     function crearRayo(){
 
-        // Ráfagas múltiples
         let cantidad = Math.floor(Math.random()*3)+2;
 
         for(let i=0;i<cantidad;i++){
@@ -144,17 +143,12 @@ function iniciarBoss(){
 
         ctx.clearRect(0,0,600,400);
 
-        // Jugador
         ctx.fillStyle="white";
         ctx.fillRect(jugador.x,jugador.y,jugador.size,jugador.size);
 
-        // Generar enemigos laterales
         if(Math.random()<0.03) crearEnemigo();
-
-        // Rayos
         if(Math.random()<0.06) crearRayo();
 
-        // Enemigos laterales
         ctx.fillStyle="red";
 
         enemigos.forEach(e=>{
@@ -172,7 +166,6 @@ function iniciarBoss(){
             }
         });
 
-        // Rayos rápidos y múltiples
         ctx.fillStyle="yellow";
 
         rayos.forEach(r=>{
@@ -186,7 +179,6 @@ function iniciarBoss(){
             }
         });
 
-        // Escalar dificultad cada 5 segundos
         tiempo++;
 
         if(tiempo%300===0){
