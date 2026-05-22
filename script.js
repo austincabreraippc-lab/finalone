@@ -117,14 +117,15 @@ function iniciarBoss(){
 
     function crearRayo(){
 
-        let cantidad = Math.floor(Math.random()*3)+2;
+        // Ráfagas múltiples
+        let cantidad = Math.floor(Math.random()*2)+1;
 
         for(let i=0;i<cantidad;i++){
             rayos.push({
                 x:Math.random()*580,
                 y:-80,
                 size:10 + Math.random()*10,
-                height:40 + Math.random()*60,
+                height:30 + Math.random()*30,
                 speed:5 + Math.random()*2
             });
         }
@@ -143,12 +144,17 @@ function iniciarBoss(){
 
         ctx.clearRect(0,0,600,400);
 
+        // Jugador
         ctx.fillStyle="white";
         ctx.fillRect(jugador.x,jugador.y,jugador.size,jugador.size);
 
+        // Generar enemigos laterales
         if(Math.random()<0.03) crearEnemigo();
-        if(Math.random()<0.06) crearRayo();
 
+        // Rayos
+        if(Math.random()<0.025) crearRayo();
+
+        // Enemigos laterales
         ctx.fillStyle="red";
 
         enemigos.forEach(e=>{
@@ -166,6 +172,7 @@ function iniciarBoss(){
             }
         });
 
+        // Rayos rápidos y múltiples
         ctx.fillStyle="yellow";
 
         rayos.forEach(r=>{
@@ -179,6 +186,7 @@ function iniciarBoss(){
             }
         });
 
+        // Escalar dificultad cada 5 segundos
         tiempo++;
 
         if(tiempo%300===0){
