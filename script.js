@@ -78,10 +78,12 @@ function iniciarBoss(){
     let juegoActivo=false;
 
     bossKeyHandler = function(e){
-        if(e.key==="ArrowLeft" && jugador.x>0) jugador.x-=15;
-        if(e.key==="ArrowRight" && jugador.x<580) jugador.x+=15;
-        if(e.key==="ArrowUp" && jugador.y>0) jugador.y-=15;
-        if(e.key==="ArrowDown" && jugador.y<380) jugador.y+=15;
+        let key = e.key.toLowerCase();
+
+        if(key==="a" && jugador.x>0) jugador.x-=15;
+        if(key==="d" && jugador.x<580) jugador.x+=15;
+        if(key==="w" && jugador.y>0) jugador.y-=15;
+        if(key==="s" && jugador.y<380) jugador.y+=15;
     };
 
     document.addEventListener("keydown", bossKeyHandler);
@@ -109,7 +111,7 @@ function iniciarBoss(){
             x:lado==="izquierda" ? 0 : 580,
             y:Math.random()*380,
             size:20,
-            speed:2
+            speed:3
         });
     }
 
@@ -124,7 +126,7 @@ function iniciarBoss(){
                 y:-80,
                 size:10 + Math.random()*10,
                 height:40 + Math.random()*60,
-                speed:2 + Math.random()*1
+                speed:5 + Math.random()*2
             });
         }
     }
@@ -150,7 +152,7 @@ function iniciarBoss(){
         if(Math.random()<0.03) crearEnemigo();
 
         // Rayos
-        if(Math.random()<0.02) crearRayo();
+        if(Math.random()<0.06) crearRayo();
 
         // Enemigos laterales
         ctx.fillStyle="red";
