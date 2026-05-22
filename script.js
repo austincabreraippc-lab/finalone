@@ -259,4 +259,4 @@ let preguntas = [
     <p>Enserio Jorge. IDIOTA</p>
     `;
     });
-    }  
+    }
