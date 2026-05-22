@@ -109,7 +109,7 @@ function iniciarBoss(){
             x:lado==="izquierda" ? 0 : 580,
             y:Math.random()*380,
             size:20,
-            speed:3
+            speed:2
         });
     }
 
@@ -124,7 +124,7 @@ function iniciarBoss(){
                 y:-80,
                 size:10 + Math.random()*10,
                 height:40 + Math.random()*60,
-                speed:2.5 + Math.random()*2
+                speed:2 + Math.random()*1
             });
         }
     }
