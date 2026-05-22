@@ -150,7 +150,7 @@ function iniciarBoss(){
         if(Math.random()<0.03) crearEnemigo();
 
         // Rayos
-        if(Math.random()<0.06) crearRayo();
+        if(Math.random()<0.02) crearRayo();
 
         // Enemigos laterales
         ctx.fillStyle="red";
