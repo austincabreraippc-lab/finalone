@@ -1,6 +1,3 @@
-Aquí va el `script.js` completo, ya con el botón de **reintentar**, el **countdown**, y corrigiendo los errores que podían romper el juego al volver a empezar:
-
-```js
 let preguntas = [
     {pregunta:"¿Cuál es su nombre?",respuesta:"Emilio Batista"},
     {pregunta:"¿Cuántas esposas tiene Emilio?",respuesta:"3"},
@@ -10,7 +7,6 @@ let preguntas = [
 ];
 
 let indice = 0;
-
 let bossKeyHandler = null;
 
 function empezar(){
@@ -64,22 +60,22 @@ function iniciarBoss(){
         bossKeyHandler = null;
     }
 
-    document.body.innerHTML = `
+    document.body.innerHTML=`
     <h1>EMILIO FINAL BOSS</h1>
     <img src="emilio_triste.png" width="150">
     <p>Sobrevive 20 segundos...</p>
     <canvas id="gameCanvas" width="600" height="400" style="background:black;border:2px solid white;"></canvas>
-    <p id="estado"></p>
+    <div id="estado"></div>
     `;
 
-    let canvas = document.getElementById("gameCanvas");
-    let ctx = canvas.getContext("2d");
+    let canvas=document.getElementById("gameCanvas");
+    let ctx=canvas.getContext("2d");
 
-    let jugador = {x:280, y:180, size:20};
-    let enemigos = [];
-    let rayos = [];
-    let tiempo = 0;
-    let juegoActivo = false;
+    let jugador={x:280,y:180,size:20};
+    let enemigos=[];
+    let rayos=[];
+    let tiempo=0;
+    let juegoActivo=false;
 
     bossKeyHandler = function(e){
         if(e.key==="ArrowLeft" && jugador.x>0) jugador.x-=15;
@@ -89,41 +85,6 @@ function iniciarBoss(){
     };
 
     document.addEventListener("keydown", bossKeyHandler);
-
-    function crearEnemigo(){
-        let lado = Math.random()<0.5 ? "izquierda" : "derecha";
-
-        enemigos.push({
-            lado: lado,
-            x: lado === "izquierda" ? 0 : 580,
-            y: Math.random()*380,
-            size: 20,
-            speed: 4
-        });
-    }
-
-    function crearRayo(){
-
-        // Ráfagas múltiples
-        let cantidad = Math.floor(Math.random()*3)+2;
-
-        for(let i=0;i<cantidad;i++){
-            rayos.push({
-                x: Math.random()*580,
-                y: -80,
-                size: 10 + Math.random()*10,
-                height: 40 + Math.random()*60,
-                speed: 7 + Math.random()*3
-            });
-        }
-    }
-
-    function detectar(a,b){
-        return a.x<b.x+b.size &&
-               a.x+a.size>b.x &&
-               a.y<b.y+b.size &&
-               a.y+a.size>b.y;
-    }
 
     function mostrarReintentar(){
         document.getElementById("estado").innerHTML = `
@@ -140,6 +101,41 @@ function iniciarBoss(){
         `;
     }
 
+    function crearEnemigo(){
+        let lado=Math.random()<0.5?"izquierda":"derecha";
+
+        enemigos.push({
+            lado:lado,
+            x:lado==="izquierda" ? 0 : 580,
+            y:Math.random()*380,
+            size:20,
+            speed:3
+        });
+    }
+
+    function crearRayo(){
+
+        // Ráfagas múltiples
+        let cantidad = Math.floor(Math.random()*3)+2;
+
+        for(let i=0;i<cantidad;i++){
+            rayos.push({
+                x:Math.random()*580,
+                y:-80,
+                size:10 + Math.random()*10,
+                height:40 + Math.random()*60,
+                speed:5 + Math.random()*2
+            });
+        }
+    }
+
+    function detectar(a,b){
+        return a.x<b.x+b.size &&
+               a.x+a.size>b.x &&
+               a.y<b.y+b.size &&
+               a.y+a.size>b.y;
+    }
+
     function actualizar(){
 
         if(!juegoActivo) return;
@@ -151,19 +147,19 @@ function iniciarBoss(){
         ctx.fillRect(jugador.x,jugador.y,jugador.size,jugador.size);
 
         // Generar enemigos laterales
-        if(Math.random()<0.04) crearEnemigo();
+        if(Math.random()<0.03) crearEnemigo();
 
-        // MUCHOS rayos
-        if(Math.random()<0.08) crearRayo();
+        // Rayos
+        if(Math.random()<0.06) crearRayo();
 
         // Enemigos laterales
         ctx.fillStyle="red";
 
         enemigos.forEach(e=>{
             if(e.lado==="izquierda"){
-                e.x += e.speed;
+                e.x+=e.speed;
             }else{
-                e.x -= e.speed;
+                e.x-=e.speed;
             }
 
             ctx.fillRect(e.x,e.y,e.size,e.size);
@@ -178,7 +174,7 @@ function iniciarBoss(){
         ctx.fillStyle="yellow";
 
         rayos.forEach(r=>{
-            r.y += r.speed;
+            r.y+=r.speed;
 
             ctx.fillRect(r.x,r.y,r.size,r.height);
 
@@ -192,8 +188,8 @@ function iniciarBoss(){
         tiempo++;
 
         if(tiempo%300===0){
-            enemigos.forEach(e=>e.speed+=1);
-            rayos.forEach(r=>r.speed+=1);
+            enemigos.forEach(e=>e.speed+=0.5);
+            rayos.forEach(r=>r.speed+=0.5);
         }
 
         if(tiempo>1200 && juegoActivo){
@@ -293,6 +289,3 @@ function mostrarPreguntaFinal(){
 window.empezar = empezar;
 window.verificar = verificar;
 window.iniciarBoss = iniciarBoss;
-```
-
-Si quieres, te hago también una versión más limpia, con el mismo juego pero sin repetir tanto código y más fácil de editar después.
