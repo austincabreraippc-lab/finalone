@@ -63,7 +63,7 @@ function iniciarBoss(){
     document.body.innerHTML=`
     <h1>EMILIO FINAL BOSS</h1>
     <img src="emilio_triste.png" width="150">
-    <p>Sobrevive 20 segundos...</p>
+    <p>Sobrevive 20 segundos... USA A,W,S,D</p>
     <canvas id="gameCanvas" width="600" height="400" style="background:black;border:2px solid white;"></canvas>
     <div id="estado"></div>
     `;
@@ -111,22 +111,22 @@ function iniciarBoss(){
             x:lado==="izquierda" ? 0 : 580,
             y:Math.random()*380,
             size:20,
-            speed:3
+            speed:4
         });
     }
 
     function crearRayo(){
 
         // Ráfagas múltiples
-        let cantidad = Math.floor(Math.random()*2)+1;
+        let cantidad = Math.floor(Math.random()*2)+2;
 
         for(let i=0;i<cantidad;i++){
             rayos.push({
                 x:Math.random()*580,
                 y:-80,
                 size:10 + Math.random()*10,
-                height:30 + Math.random()*30,
-                speed:2 + Math.random()*2
+                height:30 + Math.random()*35,
+                speed:2 + Math.random()*3
             });
         }
     }
@@ -149,10 +149,10 @@ function iniciarBoss(){
         ctx.fillRect(jugador.x,jugador.y,jugador.size,jugador.size);
 
         // Generar enemigos laterales
-        if(Math.random()<0.03) crearEnemigo();
+        if(Math.random()<0.05) crearEnemigo();
 
         // Rayos
-        if(Math.random()<0.025) crearRayo();
+        if(Math.random()<0.050) crearRayo();
 
         // Enemigos laterales
         ctx.fillStyle="red";
